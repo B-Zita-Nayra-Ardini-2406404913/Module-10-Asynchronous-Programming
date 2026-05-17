@@ -33,4 +33,9 @@ Program mencetak semua "howdy" dan "done", lalu hang (tidak berhenti). Harus dih
 ### Penjelasan:
 Server menggunakan TcpListener untuk menerima koneksi, lalu setiap koneksi di‑upgrade ke WebSocket dan ditangani oleh task terpisah dengan tokio::spawn. Di dalam fungsi handle_connection, terdapat tokio::select! yang menunggu dua kejadian yaitu pesan masuk dari client yang akan dikirim ke broadcast::Sender sehingga semua subscriber (client lain) menerimanya, serta pesan dari broadcast channel yang akan dikirim ke client yang bersangkutan. Dengan mekanisme ini, server dapat menangani banyak client secara konkuren tanpa perlu multi‑threading manual. Broadcast channel dengan buffer 16 pesan (channel(16)) dan setiap client memiliki subscribe() sendiri merupakan pola publish‑subscribe yang sangat efisien untuk aplikasi chat.
 
+## Eksperimen 2.2: Memodifikasi Port WebSocket
+### Screenshot:
+![img.png](broadcast-chat/img1.png)
 
+### Penjelasan:
+Server berjalan di port 8080, client terhubung ke port 8080. Chat tetap berfungsi normal. Komunikasi client-server menggunakan protokol WebSocket di atas TCP. Port adalah pintu masuk di sisi server. Server harus bind ke suatu port, dan client harus connect ke port yang sama. Jika port tidak sama, koneksi akan gagal dengan error connection refused. Perubahan hanya pada literal angka port, karena protokol tetap ws://. Tidak ada kode lain yang perlu dimodifikasi karena alamat host (127.0.0.1) masih sama. Eksperimen ini mengajarkan pentingnya konsistensi konfigurasi jaringan antara server dan client. Setelah perubahan, server mendengarkan di port 8080, dan client menunjuk ke port tersebut, sehingga komunikasi berjalan mulus.
