@@ -170,22 +170,29 @@ impl Executor {
 fn main() {
     let (executor, spawner) = new_executor_and_spawner();
 
-    // Spawn task untuk mencetak sesuatu sebelum dan sesudah menunggu timer
+    // Task 1
     spawner.spawn(async {
         println!("Zita's Komputer: howdy!");
-        // Tunggu timer future selesai setelah 2 detik.
-        // Ini TIDAK memblokir thread utama.
         TimerFuture::new(Duration::new(2, 0)).await;
         println!("Zita's Komputer: done!");
     });
 
+    // Task 2
+    spawner.spawn(async {
+        println!("Zita's Komputer: howdy2!");
+        TimerFuture::new(Duration::new(2, 0)).await;
+        println!("Zita's Komputer: done2!");
+    });
+
+    // Task 3
+    spawner.spawn(async {
+        println!("Zita's Komputer: howdy3!");
+        TimerFuture::new(Duration::new(2, 0)).await;
+        println!("Zita's Komputer: done3!");
+    });
+
     println!("Zita's Komputer: hey hey!");
 
-    // Drop spawner agar executor tahu tidak akan ada task baru lagi.
-    // Ini penting! Tanpa ini, executor.run() tidak akan pernah berhenti.
-    drop(spawner);
-
-    // Jalankan executor sampai semua task selesai.
-    // Ini akan mencetak "howdy!", pause 2 detik, lalu "done!".
+    // drop(spawner);
     executor.run();
 }
