@@ -179,6 +179,8 @@ fn main() {
         println!("Zita's Komputer: done!");
     });
 
+    println!("Zita's Komputer: hey hey!");
+
     // Drop spawner agar executor tahu tidak akan ada task baru lagi.
     // Ini penting! Tanpa ini, executor.run() tidak akan pernah berhenti.
     drop(spawner);
