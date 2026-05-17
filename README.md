@@ -2,7 +2,7 @@ Nama: Zita Nayra Ardini
 NPM: 2406404913
 Kelas: Pemrograman Lanjut B
 
-# TUTORIAL TIMER
+# TUTORIAL 1: Timer
 ## Eksperimen 1.2: Memahami Cara Kerja Executor
 ### Screenshot:
 ![img.png](async-timer/img.png)
@@ -24,3 +24,13 @@ Program mencetak semua "howdy" dan "done", lalu hang (tidak berhenti). Harus dih
 
 - Menghapus drop:
 > Executor menggunakan while let Ok(task) = ready_queue.recv(). Fungsi recv() akan menunggu selama channel masih terbuka. Channel ditutup hanya ketika semua SyncSender (termasuk spawner) di-drop. Karena spawner tidak di-drop, executor terus menunggu task baru meskipun antrian kosong. Akibatnya program tidak pernah berhenti.
+
+# TUTORIAL 2: Broadcast Chat
+## Eksperimen 2.1: Menambahkan Fitur Broadcast
+### Screenshot:
+![img.png](broadcast-chat/img.png)
+
+### Penjelasan:
+Server menggunakan TcpListener untuk menerima koneksi, lalu setiap koneksi di‑upgrade ke WebSocket dan ditangani oleh task terpisah dengan tokio::spawn. Di dalam fungsi handle_connection, terdapat tokio::select! yang menunggu dua kejadian yaitu pesan masuk dari client yang akan dikirim ke broadcast::Sender sehingga semua subscriber (client lain) menerimanya, serta pesan dari broadcast channel yang akan dikirim ke client yang bersangkutan. Dengan mekanisme ini, server dapat menangani banyak client secara konkuren tanpa perlu multi‑threading manual. Broadcast channel dengan buffer 16 pesan (channel(16)) dan setiap client memiliki subscribe() sendiri merupakan pola publish‑subscribe yang sangat efisien untuk aplikasi chat.
+
+
