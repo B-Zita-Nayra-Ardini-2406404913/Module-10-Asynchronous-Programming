@@ -27,12 +27,35 @@ pub fn login() -> Html {
     };
 
     html! {
-        <div class="bg-gray-800 flex w-screen">
-            <div class="container mx-auto flex flex-col justify-center items-center	">
-                <form class="m-4 flex">
-                    <input {oninput} class="rounded-l-lg p-4 border-t mr-0 border-b border-l text-gray-800 border-gray-200 bg-white" placeholder="Username"/>
-                    <Link<Route> to={Route::Chat}> <button {onclick} disabled={username.len()<1} class="px-8 rounded-r-lg bg-violet-600	  text-white font-bold p-4 uppercase border-violet-600 border-t border-b border-r" >{"Go Chatting!"}</button></Link<Route>>
-                </form>
+        <div class="flex w-screen h-screen items-center justify-center" style="background:#0f172a;">
+            <div class="flex flex-col items-center p-10 rounded-2xl w-80" style="background:#1e293b; border:1px solid #334155;">
+                <div class="text-5xl mb-2">{"🌐"}</div>
+                <h1 class="text-2xl font-bold mb-2" style="color:#38bdf8;">{"Rust WebChat"}</h1>
+                <p class="text-sm mb-6 text-center" style="color:#94a3b8;">{"Masukkan username untuk mulai chat"}</p>
+                <input
+                    type="text"
+                    placeholder="Username..."
+                    value={(*username).clone()}
+                    {oninput}
+                    class="w-full py-3 px-4 rounded-xl mb-4 text-sm outline-none"
+                    style="background:#0f172a; color:#e2e8f0; border:1px solid #334155;"
+                />
+                <Link<Route> to={Route::Chat}>
+                    <button
+                        {onclick}
+                        disabled={username.len() < 2}
+                        class="w-full py-3 rounded-xl font-bold text-sm"
+                        style={
+                            if username.len() >= 2 {
+                                "background:#38bdf8; color:#0f172a; cursor:pointer; border:none; width:256px;"
+                            } else {
+                                "background:#334155; color:#64748b; cursor:not-allowed; border:none; width:256px;"
+                            }
+                        }
+                    >
+                        { if username.len() >= 2 { "Connect 🚀" } else { "Masukkan username..." } }
+                    </button>
+                </Link<Route>>
             </div>
         </div>
     }

@@ -56,3 +56,12 @@ Setelah di clone, aplikasi bisa dijalankan dan beberapa user bisa saling berkomu
 
 ### Penjelasan:
 Yew adalah framework Rust untuk frontend WebAssembly. Aplikasi Yew dikompilasi ke WASM dan dijalankan di browser. Komunikasi dengan server menggunakan WebSocket melalui crate web-sys. Client Yew mengirim pesan dalam bentuk JSON, dan server JavaScript hanya mem-broadcast pesan tersebut tanpa mengubahnya. Setiap client yang terhubung menerima pesan dan menampilkannya. Ini menunjukkan interoperabilitas antara Rust backend dan frontend Rust (WASM) dengan protokol yang sama. Keunggulan Yew adalah kita bisa menulis frontend dengan Rust, memanfaatkan type safety dan performa WASM. Ekosistem trunk memudahkan pengembangan dan live reload. Eksperimen ini menjadi dasar untuk modifikasi kreatif di eksperimen berikutnya.
+
+## Eksperimen 3.2: Be Creative!
+### Screenshot:
+![img.png](YewChat/img2.png)
+![img.png](YewChat/img3.png)
+
+### Penjelasan:
+Saya memodifikasi tampilan YewChat dengan menerapkan tema dark navy + cyan yang modern. Perubahan yang dilakukan meliputi redesain halaman login dengan card terpusat yang menampilkan ikon globe, judul, dan tombol Connect yang berubah warna secara dinamis tergantung apakah username sudah diisi atau belum. Pada halaman chat, saya mengubah layout menjadi dua panel dimana sidebar kiri untuk daftar user online dengan indikator status, dan panel kanan untuk area percakapan dengan bubble pesan yang lebih rapi menggunakan rounded card design.
+Selain perubahan visual, saya juga menambahkan fitur timestamp pada setiap pesan dalam format HH:MM yang di-generate di sisi client menggunakan js_sys::Date. Hal ini membuat aplikasi lebih fungsional karena pengguna dapat mengetahui kapan sebuah pesan dikirim. Pemilihan warna gelap (#0f172a) dengan aksen cyan (#38bdf8) terinspirasi dari aplikasi chat modern seperti Discord, yang terbukti nyaman digunakan dalam waktu lama karena mengurangi kelelahan mata.
