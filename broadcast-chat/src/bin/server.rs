@@ -31,8 +31,9 @@ async fn handle_connection(
                     Some(Ok(msg)) => {
                         let msg = msg.as_text().unwrap_or_default();
                         println!("From client {addr:?} {msg:?}");
-                        // Broadcast pesan ke semua client
-                        bcast_tx.send(msg.to_string())?;
+                        // Format pesan dengan info pengirim
+                        let formatted_msg = format!("{addr}: {msg}");
+                        bcast_tx.send(formatted_msg)?;
                     }
                     Some(Err(err)) => return Err(err.into()),
                     None => return Ok(()), // Client disconnect

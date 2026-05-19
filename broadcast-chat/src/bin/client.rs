@@ -37,7 +37,7 @@ async fn main() -> Result<(), Box<dyn Error + Send + Sync>> {
             // Terima pesan dari server dan tampilkan
             msg = ws_stream.next() => {
                 match msg {
-                    Some(Ok(msg)) => println!("From server: {}", msg.as_text().unwrap_or_default()),
+                    Some(Ok(msg)) => println!("Zita's Komputer - From server: {}", msg.as_text().unwrap_or_default()),
                     Some(Err(e)) => return Err(e.into()),
                     None => return Ok(()), // Server disconnect
                 }
