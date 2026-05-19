@@ -46,3 +46,13 @@ Server berjalan di port 8080, client terhubung ke port 8080. Chat tetap berfungs
 
 ### Penjelasan:
 Parameter addr (bertipe SocketAddr) hanya tersedia di server dari listener.accept(). Server mengetahui alamat IP dan port setiap client yang terhubung. Sementara itu, client tidak memiliki informasi tentang alamat client lain. Oleh karena itu, penambahan informasi pengirim harus dilakukan di sisi server sebelum pesan di-broadcast. Dengan memformat ulang pesan menjadi "{addr}: {msg}", setiap client dapat melihat siapa pengirim asli berdasarkan alamatnya. Ini berguna untuk transparansi dalam chat room tanpa sistem login. Selain itu, dengan menampilkan port, kita bisa membedakan beberapa client dari komputer yang sama (karena port berbeda). Perubahan ini menunjukkan bagaimana kita bisa memanfaatkan informasi koneksi TCP untuk memperkaya pengalaman pengguna.
+
+# TUTORIAL 3: WebChat using Yew
+## Eksperimen 3.1: Original code of web server
+### Screenshot:
+![img.png](YewChat/img1.png)
+![img.png](YewChat/img.png)
+Setelah di clone, aplikasi bisa dijalankan dan beberapa user bisa saling berkomunikasi melalui web chat.
+
+### Penjelasan:
+Yew adalah framework Rust untuk frontend WebAssembly. Aplikasi Yew dikompilasi ke WASM dan dijalankan di browser. Komunikasi dengan server menggunakan WebSocket melalui crate web-sys. Client Yew mengirim pesan dalam bentuk JSON, dan server JavaScript hanya mem-broadcast pesan tersebut tanpa mengubahnya. Setiap client yang terhubung menerima pesan dan menampilkannya. Ini menunjukkan interoperabilitas antara Rust backend dan frontend Rust (WASM) dengan protokol yang sama. Keunggulan Yew adalah kita bisa menulis frontend dengan Rust, memanfaatkan type safety dan performa WASM. Ekosistem trunk memudahkan pengembangan dan live reload. Eksperimen ini menjadi dasar untuk modifikasi kreatif di eksperimen berikutnya.
